@@ -43,7 +43,7 @@ class OpenApiFactory implements OpenApiFactoryInterface
                         'description' => 'Błędne dane logowania.',
                     ],
                 ],
-                                description: 'Umożliwia uzyskanie sesji po podaniu loginu i hasła.',
+                description: 'Umożliwia uzyskanie sesji po podaniu loginu i hasła.',
                 requestBody: new Model\RequestBody(
                     description: 'The login data',
                     content: new \ArrayObject([

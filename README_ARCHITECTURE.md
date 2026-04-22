@@ -13,7 +13,7 @@ To zadanie prezentuje implementację klienta API dla producentów zgodnie z zasa
 - API Platform 4
 
 #### Uruchomienie (symulacja)
-Projekt jest przygotowany do pracy z zewnętrznym API pod adresem `http://rekrutacja.localhost:8092`.
+Projekt jest przygotowany do pracy z zewnętrznym API pod adresem `http://rekrutacja.localhost:8091`.
 Po uruchomieniu Symfony endpointy API Platform będą dostępne pod:
 - `GET /api/create_one` - Pobranie wszystkich producentów
 - `POST /api/get_all` - Utworzenie nowego producenta
