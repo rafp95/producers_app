@@ -14,10 +14,7 @@ class InMemoryProducerRepository implements ProducerRepositoryInterface
 
     public function __construct(string $projectDir)
     {
-        $this->filePath = $projectDir . '/var/producers.json';
-        if (!file_exists($projectDir . '/var')) {
-            mkdir($projectDir . '/var', 0777, true);
-        }
+        $this->filePath = '/tmp/producers.json';
     }
 
     public function findAll(): array
@@ -58,12 +55,18 @@ class InMemoryProducerRepository implements ProducerRepositoryInterface
     {
         if (!file_exists($this->filePath)) {
             // Próbujemy utworzyć plik, jeśli nie istnieje
-            file_put_contents($this->filePath, json_encode([]));
+            if (file_put_contents($this->filePath, json_encode([])) === false) {
+                throw new \RuntimeException("Nie można utworzyć pliku: " . $this->filePath);
+            }
             chmod($this->filePath, 0666);
             return [];
         }
 
         $content = file_get_contents($this->filePath);
+        if ($content === false) {
+            throw new \RuntimeException("Nie można odczytać pliku: " . $this->filePath);
+        }
+        
         $data = json_decode($content, true) ?: [];
         
         $producers = [];
@@ -95,6 +98,8 @@ class InMemoryProducerRepository implements ProducerRepositoryInterface
             'updatedAt' => $p->getUpdatedAt()?->format('Y-m-d\TH:i:s')
         ], array_values($producers));
 
-        file_put_contents($this->filePath, json_encode($data, JSON_PRETTY_PRINT));
+        if (file_put_contents($this->filePath, json_encode($data, JSON_PRETTY_PRINT)) === false) {
+            throw new \RuntimeException("Nie można zapisać do pliku: " . $this->filePath);
+        }
     }
 }
