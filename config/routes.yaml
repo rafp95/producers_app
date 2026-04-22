@@ -4,7 +4,7 @@ controllers:
         namespace: App\Controller
     type: attribute
 
-# Domylny route
+# Domyślny route
 default:
     path: /
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController
