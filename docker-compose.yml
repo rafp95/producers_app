@@ -1,0 +1,43 @@
+services:
+  php:
+    build:
+      context: .
+      target: app_php_dev
+    volumes:
+      - .:/var/www/html:cached
+      - ./var:/var/www/html/var
+    environment:
+      APP_ENV: dev
+      APP_DEBUG: 1
+      XDEBUG_MODE: develop,debug,coverage
+      XDEBUG_CONFIG: client_host=host.docker.internal
+      XDEBUG_SESSION: xdebug
+      XDEBUG_START_WITH_REQUEST: yes
+      XDEBUG_DISCOVER_CLIENT_HOST: yes
+      XDEBUG_CLIENT_HOST: host.docker.internal
+      XDEBUG_CLIENT_PORT: 9003
+      XDEBUG_IDEKEY: PHPSTORM
+      SERVER_NAME: api-producers.localhost
+      PHP_IDE_CONFIG: serverName=symfony-app
+      XDEBUG_LOG: /tmp/xdebug.log
+      XDEBUG_LOG_LEVEL: 10
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    networks:
+      - appnet
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8091:80"
+    volumes:
+      - .:/var/www/html:ro
+      - ./etc/nginx/conf.d:/etc/nginx/conf.d:ro
+    depends_on:
+      - php
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: bridge

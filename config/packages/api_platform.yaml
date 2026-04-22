@@ -1,0 +1,53 @@
+api_platform:
+    title: Producer API
+    version: 1.0.0
+    formats:
+        json: ['application/json']
+        jsonld: ['application/ld+json']
+        html: ['text/html']
+    docs_formats:
+        json: ['application/json']
+        jsonld: ['application/ld+json']
+        html: ['text/html']
+    enable_swagger_ui: true
+    enable_re_doc: true
+    show_webby: false
+    swagger:
+        api_keys: []
+        swagger_ui_extra_configuration:
+            plugins: []
+            pluginsOptions: {}
+            displayRequestDuration: false
+            docExpansion: 'list'
+            tryItOutEnabled: true
+            filter: false
+            showExtensions: false
+            showCommonExtensions: false
+            deepLinking: true
+            persistAuthorization: false
+            withCredentials: false
+            defaultModelsExpandDepth: -1
+            displayModelsAsDefault: false
+            defaultModelExpandDepth: -1
+    openapi:
+        contact:
+            name: 'API Support'
+    handle_symfony_errors: true
+    error_formats:
+        json: ['application/json']
+        jsonproblem: ['application/problem+json']
+    defaults:
+        stateless: false
+        extra_properties:
+            rfc_7807: true
+        cache_headers:
+            vary: ['Content-Type', 'Authorization', 'Origin']
+        pagination_enabled: true
+        pagination_client_items_per_page: true
+        pagination_client_partial: false
+        pagination_items_per_page_parameter_name: limit
+        pagination_maximum_items_per_page: 100
+    exception_to_status:
+        Symfony\Component\HttpKernel\Exception\NotFoundHttpException: 404
+        Symfony\Component\Security\Core\Exception\AccessDeniedException: 403
+        Symfony\Component\Security\Core\Exception\AuthenticationException: 401
